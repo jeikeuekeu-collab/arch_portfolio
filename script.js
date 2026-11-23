@@ -83,9 +83,12 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
 // --- 3. Three.js Interactive 3D Massing Viewer ---
 let scene, camera, renderer, controls, massGroup;
-let isWireframe = false;
+const isWireframe = false;
 let isRotating = false;
 let isCustomModelLoaded = false;
+let modelScale = 1;
+let modelBaseY = 0;
+const sectionPlane = new THREE.Plane(new THREE.Vector3(0, -1, 0), 1000);
 
 function initThreeViewer() {
     const container = document.getElementById('three-canvas-wrap');
@@ -103,6 +106,7 @@ function initThreeViewer() {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.shadowMap.enabled = true;
+    renderer.localClippingEnabled = true;
     container.appendChild(renderer.domElement);
 
     // OrbitControls
@@ -223,22 +227,6 @@ function initThreeViewer() {
     animate();
 
     // Button Events
-    document.getElementById('btn-mode-wire').addEventListener('click', function() {
-        isWireframe = !isWireframe;
-        this.classList.toggle('active', isWireframe);
-        if (massGroup) {
-            massGroup.traverse(node => {
-                if (node.isMesh && node.material) {
-                    if (Array.isArray(node.material)) {
-                        node.material.forEach(m => m.wireframe = isWireframe);
-                    } else {
-                        node.material.wireframe = isWireframe;
-                    }
-                }
-            });
-        }
-    });
-
     document.getElementById('btn-mode-rotate').addEventListener('click', function() {
         isRotating = !isRotating;
         this.classList.toggle('active', isRotating);
@@ -249,11 +237,50 @@ function initThreeViewer() {
         camera.position.set(24, 18, 26);
         controls.target.set(0, 3, 0);
         if (massGroup) massGroup.rotation.y = 0;
+        setSectionCut('all');
         resetMassHighlight();
     });
 
     // Check if user has a custom gltf/glb file in models/ folder
     loadStaticGltfIfExists('models/building.glb');
+}
+
+// 3-1. Section Cut Logic (Clipping Plane)
+function enableSectionControls(enabled = true) {
+    document.querySelectorAll('.section-btn').forEach(btn => btn.disabled = !enabled);
+    const slider = document.getElementById('sec-slider');
+    if (slider) slider.disabled = !enabled;
+}
+
+function setSectionCut(heightOrMode) {
+    const heightValEl = document.getElementById('sec-height-val');
+    const sliderEl = document.getElementById('sec-slider');
+    document.querySelectorAll('.section-btn').forEach(btn => btn.classList.remove('active'));
+
+    if (heightOrMode === 'all') {
+        sectionPlane.constant = 1000;
+        if (heightValEl) heightValEl.innerText = "자르지 않음";
+        if (sliderEl) sliderEl.value = 6.5;
+        const btnAll = document.getElementById('btn-sec-all');
+        if (btnAll) btnAll.classList.add('active');
+    } else {
+        const h = parseFloat(heightOrMode);
+        sectionPlane.constant = modelBaseY + h * modelScale;
+        if (heightValEl) heightValEl.innerText = `자르는 높이 ${h.toFixed(1)} m`;
+        if (sliderEl) sliderEl.value = h;
+
+        if (Math.abs(h - 6.0) < 0.05) {
+            const btn2f = document.getElementById('btn-sec-2f');
+            if (btn2f) btn2f.classList.add('active');
+        } else if (Math.abs(h - 3.0) < 0.05) {
+            const btn1f = document.getElementById('btn-sec-1f');
+            if (btn1f) btn1f.classList.add('active');
+        }
+    }
+}
+
+function onSectionSlider(val) {
+    setSectionCut(val);
 }
 
 // 4-1. GLTF / GLB Loader Logic
@@ -315,6 +342,24 @@ function applyLoadedModel(modelScene, modelName) {
     modelScene.position.x = -center.x * scale;
     modelScene.position.y = -box.min.y * scale;
     modelScene.position.z = -center.z * scale;
+
+    modelScale = scale;
+    modelBaseY = modelScene.position.y;
+
+    modelScene.traverse(node => {
+        if (node.isMesh && node.material) {
+            if (Array.isArray(node.material)) {
+                node.material.forEach(m => {
+                    m.clippingPlanes = [sectionPlane];
+                });
+            } else {
+                node.material.clippingPlanes = [sectionPlane];
+            }
+        }
+    });
+
+    enableSectionControls(true);
+    setSectionCut('all');
 
     massGroup = new THREE.Group();
     massGroup.add(modelScene);

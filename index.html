@@ -118,7 +118,6 @@
                     <div>
                         <p class="control-title">SPATIAL ZONING & VIEW</p>
                         <div class="control-panel">
-                            <button class="v-btn active" id="btn-mode-wire">Wireframe / Clay 모드</button>
                             <button class="v-btn" id="btn-mode-rotate">Auto Rotate ON</button>
                             <button class="v-btn" id="btn-mode-reset">Reset View</button>
                             <!-- GLTF/GLB Upload -->
@@ -131,6 +130,22 @@
                                 <p>• <strong>권장 용량:</strong> 빠른 웹 로딩을 위해 <strong>개당 5MB ~ 25MB 이하</strong> 권장</p>
                                 <p>• <strong>배포 경로:</strong> <code>models/building.glb</code>에 넣으면 자동 로드</p>
                                 <p>• <strong>지원 포맷:</strong> .glb(단일 바이너리 권장), .gltf</p>
+                            </div>
+                        </div>
+
+                        <p class="control-title" style="margin-top: 1.5rem;">SECTION VIEW</p>
+                        <div class="control-panel">
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; width: 100%;">
+                                <button class="v-btn section-btn active" id="btn-sec-all" onclick="setSectionCut('all')" style="text-align: center;" disabled>전체</button>
+                                <button class="v-btn section-btn" id="btn-sec-2f" onclick="setSectionCut(6.0)" style="text-align: center;" disabled>2층 실내</button>
+                                <button class="v-btn section-btn" id="btn-sec-1f" onclick="setSectionCut(3.0)" style="text-align: center;" disabled>1층 실내</button>
+                            </div>
+                            <div style="margin-top: 0.8rem; width: 100%;">
+                                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.3rem;">
+                                    <span>높이 조절</span>
+                                    <span id="sec-height-val">자르지 않음</span>
+                                </div>
+                                <input type="range" id="sec-slider" min="0.5" max="6.5" step="0.1" value="6.5" style="width: 100%; accent-color: var(--accent); cursor: pointer;" oninput="onSectionSlider(this.value)" disabled>
                             </div>
                         </div>
 
