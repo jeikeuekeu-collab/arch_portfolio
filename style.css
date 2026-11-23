@@ -430,15 +430,18 @@ main {
     overflow: hidden;
     margin-top: 2rem;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    height: 480px;
+    grid-template-columns: 1.8fr 1.2fr;
+    grid-template-rows: 560px;
+    height: 560px;
 }
 
 #three-canvas-wrap {
     width: 100%;
-    height: 100%;
+    height: 560px;
     background: #090b0e;
     cursor: grab;
+    position: relative;
+    overflow: hidden;
 }
 
 #three-canvas-wrap:active {
@@ -446,12 +449,15 @@ main {
 }
 
 .viewer-controls {
-    padding: 2rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1.2rem;
     border-left: 1px solid var(--border);
     background: rgba(20, 24, 31, 0.95);
+    overflow-y: auto !important;
+    height: 560px;
+    max-height: 560px;
 }
 
 .control-title {

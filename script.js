@@ -234,8 +234,14 @@ function initThreeViewer() {
     });
 
     document.getElementById('btn-mode-reset').addEventListener('click', function() {
-        camera.position.set(24, 18, 26);
-        controls.target.set(0, 3, 0);
+        if (isCustomModelLoaded) {
+            controls.target.set(0, 2.87, 0);
+            camera.position.set(20, 12.87, 22);
+        } else {
+            camera.position.set(24, 18, 26);
+            controls.target.set(0, 3, 0);
+        }
+        controls.update();
         if (massGroup) massGroup.rotation.y = 0;
         setSectionCut('all');
         resetMassHighlight();
@@ -365,8 +371,11 @@ function applyLoadedModel(modelScene, modelName) {
     massGroup.add(modelScene);
     scene.add(massGroup);
 
-    camera.position.set(24, 18, 26);
-    controls.target.set(0, 5, 0);
+    const centerY = (size.y * scale) / 2;
+    controls.target.set(0, centerY, 0);
+    camera.position.set(20, centerY + 10, 22);
+    camera.lookAt(0, centerY, 0);
+    controls.update();
 
     document.getElementById('anno-title').innerText = "전체 매스 (Overall Massing)";
     document.getElementById('anno-desc').innerText = "[CORE]로 모으고, [LOOP]로 순환하며, [NEXUS]로 연결한다. 서로 다른 속도의 삶이 부딪히지 않고 공존하는 우주적 질서를 통해, 타인은 비로소 가족이 된다.";
@@ -396,7 +405,10 @@ function highlightPart(partName) {
     if (!massGroup) return;
 
     document.querySelectorAll('.part-btn').forEach(btn => btn.classList.remove('active'));
-    event?.currentTarget?.classList.add('active');
+    const targetBtn = (typeof event !== 'undefined' && event && event.currentTarget) ?
+        event.currentTarget :
+        document.querySelector(`.part-btn[onclick*="${partName}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
 
     if (!isCustomModelLoaded) {
         massGroup.children.forEach(mesh => {
@@ -525,21 +537,26 @@ const briefingData = {
 
 function switchBriefing(type) {
     document.querySelectorAll('.r-tab').forEach(btn => btn.classList.remove('active'));
-    event?.currentTarget?.classList.add('active');
+    const targetBtn = (typeof event !== 'undefined' && event && event.currentTarget) ?
+        event.currentTarget :
+        document.querySelector(`.r-tab[onclick*="${type}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
 
     const data = briefingData[type];
     if (!data) return;
 
     const display = document.getElementById('briefing-display');
-    display.innerHTML = `
-        <div class="briefing-box">
-            <span class="briefing-tag">${data.tag}</span>
-            <h4 class="briefing-heading">${data.title}</h4>
-            <ul class="briefing-list">
-                ${data.bullets.map(b => `<li><span class="bullet-dot">▸</span> <span>${b}</span></li>`).join('')}
-            </ul>
-        </div>
-    `;
+    if (display) {
+        display.innerHTML = `
+            <div class="briefing-box">
+                <span class="briefing-tag">${data.tag}</span>
+                <h4 class="briefing-heading">${data.title}</h4>
+                <ul class="briefing-list">
+                    ${data.bullets.map(b => `<li><span class="bullet-dot">▸</span> <span>${b}</span></li>`).join('')}
+                </ul>
+            </div>
+        `;
+    }
 }
 
 // 5. 시나리오 룰베이스 답변 데이터베이스 (ORBIT 프로젝트 내용)
