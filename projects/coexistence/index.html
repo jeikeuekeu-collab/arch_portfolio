@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LANDSCAPE OF COEXISTENCE : 공존의 풍경화 | 신구대학교 건축학과 유시윤</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css?v=2">
+    <style>
+        /* Detail Page Custom Styles */
+        .project-detail-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 2rem 6rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-hero {
+            padding: 3rem 0 2rem;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        .project-core-question {
+            font-size: 1.15rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            letter-spacing: -0.3px;
+        }
+
+        .project-category-tag {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-main-title {
+            font-family: var(--font-heading);
+            font-size: 2.8rem;
+            line-height: 1.2;
+            margin-bottom: 0.8rem;
+        }
+
+        .project-sub-title {
+            font-size: 1.35rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .project-one-line {
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-author-badge {
+            display: inline-block;
+            background: rgba(94, 234, 212, 0.1);
+            color: var(--accent);
+            border: 1px solid var(--border-accent);
+            padding: 0.35rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .project-cover-placeholder {
+            width: 100%;
+            height: 380px;
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 3rem;
+        }
+
+        .placeholder-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .detail-section {
+            margin-bottom: 4.5rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-num-tag {
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .detail-heading {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-primary);
+        }
+
+        .subsection-heading {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--text-primary);
+            border-left: 3px solid var(--accent);
+            padding-left: 0.8rem;
+        }
+
+        .content-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr;
+            }
+            .project-main-title {
+                font-size: 2rem;
+            }
+            .project-cover-placeholder {
+                height: 240px;
+            }
+        }
+
+        /* Image Display */
+        .project-img-box {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin: 1rem 0;
+            background: rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .project-img-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-img-box img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .img-caption {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            padding: 0.6rem 0.8rem;
+            background: rgba(0,0,0,0.4);
+            border-top: 1px solid var(--border);
+        }
+
+        /* Architectural Drawing Cards */
+        .drawing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .drawing-card {
+            background: #ffffff;
+            border-radius: var(--radius-sm);
+            padding: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .drawing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+        }
+
+        .drawing-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .drawing-label {
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e293b;
+            text-align: center;
+        }
+
+        .drawing-zoom-hint {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-align: center;
+            margin-top: 0.2rem;
+        }
+
+        /* HTML Tables */
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+        }
+
+        .detail-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .detail-table th, .detail-table td {
+            padding: 0.85rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .detail-table th {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .detail-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .detail-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Perspective Placeholder */
+        .perspective-placeholder-box {
+            width: 100%;
+            height: 260px;
+            border-radius: var(--radius-sm);
+            border: 1px dashed var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.8rem;
+        }
+
+        /* Floor Plan Tabs */
+        .plan-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .plan-tab-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+        }
+
+        .plan-tab-btn.active {
+            background: var(--accent);
+            color: #0b0f17;
+            border-color: var(--accent);
+        }
+
+        .plan-display-item {
+            display: none;
+        }
+
+        .plan-display-item.active {
+            display: block;
+        }
+
+        /* Back Navigation */
+        .back-nav-box {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Lightbox */
+        .lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+        }
+
+        .lightbox-modal.show {
+            display: flex;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 95%;
+            text-align: center;
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 85vh;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
+            background: #ffffff;
+        }
+
+        .btn-lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #ffffff;
+            font-size: 2rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-caption {
+            color: #e2e8f0;
+            margin-top: 1rem;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="blueprint-grid"></div>
+
+    <!-- Navigation Header -->
+    <header class="header">
+        <div class="logo">
+            <span class="logo-bold">ARCHI</span><span class="logo-light">FOLIO</span>
+            <span class="badge">STUDIO 2026</span>
+        </div>
+        <nav class="nav">
+            <a href="../../index.html#about">About</a>
+            <a href="../../index.html#projects">Projects</a>
+            <a href="../../index.html#viewer-section">3D Massing</a>
+            <a href="../../index.html#design-rationale">Design Rationale</a>
+            <a href="../../index.html#contact" class="btn-nav">Contact</a>
+        </nav>
+    </header>
+
+    <main class="project-detail-wrap">
+        <!-- Hero Section -->
+        <section class="project-hero" id="about">
+            <p class="project-core-question">공존하기 때문에 발생하는 문제를, 공간으로 해결할 수 있는가?</p>
+            <p class="project-category-tag">PUBLIC · 2026.FALL / 2학년 2학기</p>
+            <h1 class="project-main-title">LANDSCAPE OF COEXISTENCE</h1>
+            <p class="project-sub-title">공존의 풍경화 — 각자의 공간, 하나의 지붕</p>
+            <p class="project-one-line">네 세대가 같은 나무를 바라보는 소규모 복합문화시설</p>
+            <span class="project-author-badge">설계 스튜디오 · 2025135027 유시윤</span>
+
+            <div class="project-cover-placeholder">
+                <span class="placeholder-text">MAIN RENDER — 준비 중</span>
+            </div>
+        </section>
+
+        <!-- PROJECT DATA -->
+        <section class="detail-section" id="data">
+            <p class="section-num-tag">PROJECT DATA</p>
+            <h2 class="detail-heading">건축 개요</h2>
+
+            <div class="grid-2">
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 1.2rem; font-size: 1.15rem;">대지 개요</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem; color: var(--text-secondary); font-size: 0.95rem; padding-left: 0;">
+                        <li><strong style="color: var(--text-primary);">대지 위치:</strong> 경기도 성남시 분당구 정자동 219-1, 219-2</li>
+                        <li><strong style="color: var(--text-primary);">대지 면적:</strong> 1,448.0㎡</li>
+                        <li><strong style="color: var(--text-primary);">접도:</strong> 북 불곡북로 (중로2류, 15m) / 서 불정로 (대로1류) / 동 소로2류 (8~10m) / 남 보행자전용도로</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 1.2rem; font-size: 1.15rem;">건물 개요</h4>
+                    <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.8rem; color: var(--text-secondary); font-size: 0.95rem; padding-left: 0;">
+                        <li><strong style="color: var(--text-primary);">용도:</strong> 소규모 복합문화시설</li>
+                        <li><strong style="color: var(--text-primary);">규모:</strong> 지하 1층 · 지상 4층</li>
+                        <li><strong style="color: var(--text-primary);">최고 높이:</strong> 25.34m</li>
+                        <li><strong style="color: var(--text-primary);">구조:</strong> 철근콘크리트조 · 곡면 금속지붕</li>
+                        <li><strong style="color: var(--text-primary);">연면적:</strong> 지하 1,254㎡</li>
+                        <li><strong style="color: var(--text-primary);">주차:</strong> 14대 (장애인 1) · 법정 11대</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 01 ISSUE -->
+        <section class="detail-section" id="issue">
+            <p class="section-num-tag">01. ISSUE</p>
+            <h2 class="detail-heading">섞는 대신, 같은 풍경을 바라보게</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/01_issue.jpg', '01 ISSUE — 섞는 대신, 같은 풍경을 바라보게')">
+                <img src="images/01_issue.jpg" alt="01 ISSUE" loading="lazy">
+                <p class="img-caption">01 ISSUE 다이어그램 (클릭하여 확대)</p>
+            </div>
+
+            <div class="grid-3" style="margin-top: 1.5rem;">
+                <div class="content-card">
+                    <h4 style="color: #f87171; margin-bottom: 0.6rem;">갈등 — 섞어 두면</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+                        선택권 없는 근접 — 시선이 닿고 마찰이 생긴다 (1.2~3.7m)
+                    </p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: #fbbf24; margin-bottom: 0.6rem;">배제 — 그래서 사람을 나눈다</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+                        카페 출입문 "60세 이상 출입제한" (2023) / 공공 수영장에도 노시니어존 요구 (2024) / 노키즈존 전국 500곳 이상 (2023)
+                    </p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.6rem;">공존 — 같은 나무를 바라보면</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+                        인사할 의무 없는 거리에서 같은 풍경을 겪는다 (약 8~13m) → 배제 대신, 거리를 각자 고른다
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02 DEMOGRAPHICS -->
+        <section class="detail-section" id="demographics">
+            <p class="section-num-tag">02. DEMOGRAPHICS</p>
+            <h2 class="detail-heading">대지 300m 안에, 네 세대가 함께 산다</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/02_demographics.jpg', '02 DEMOGRAPHICS')">
+                <img src="images/02_demographics.jpg" alt="02 DEMOGRAPHICS" loading="lazy">
+                <p class="img-caption">02 DEMOGRAPHICS 다이어그램 (클릭하여 확대)</p>
+            </div>
+
+            <div class="table-wrap">
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th>세대</th>
+                            <th>대지 300m</th>
+                            <th>정자3동</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>10~19세</td>
+                            <td>11%</td>
+                            <td>12%</td>
+                        </tr>
+                        <tr>
+                            <td>20~39세</td>
+                            <td>30%</td>
+                            <td>27%</td>
+                        </tr>
+                        <tr>
+                            <td>40~59세</td>
+                            <td>36%</td>
+                            <td>38%</td>
+                        </tr>
+                        <tr>
+                            <td>60세 이상</td>
+                            <td>23%</td>
+                            <td>23%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 03 CONTEXT -->
+        <section class="detail-section" id="context">
+            <p class="section-num-tag">03. CONTEXT</p>
+            <h2 class="detail-heading">낮아지는 도시 스카이라인을 잇는 지붕</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/03_context.jpg', '03 CONTEXT')">
+                <img src="images/03_context.jpg" alt="03 CONTEXT" loading="lazy">
+                <p class="img-caption">03 CONTEXT 다이어그램 (클릭하여 확대)</p>
+            </div>
+
+            <div class="content-card">
+                <p style="color: var(--text-primary); font-size: 1rem; line-height: 1.7; margin-bottom: 0.8rem;">
+                    서측 약 +25m → 동측으로 낮아지는 곡면 지붕. 아파트와 주택지의 스케일을 잇는다.
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    정자역 · 역세권 → 근린생활권 · 아파트 블록 → 학교 → 대지 → 단독주택지 → 구릉지 · 녹지
+                </p>
+            </div>
+        </section>
+
+        <!-- 04 SITE ANALYSIS -->
+        <section class="detail-section" id="site-analysis">
+            <p class="section-num-tag">04. SITE ANALYSIS</p>
+            <h2 class="detail-heading">대지 분석</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/04_site_analysis.jpg', '04 SITE ANALYSIS')">
+                <img src="images/04_site_analysis.jpg" alt="04 SITE ANALYSIS" loading="lazy">
+                <p class="img-caption">04 SITE ANALYSIS (범례: 하교 학생 / 단독주택지 주민 / 아파트 주민, 클릭하여 확대)</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">1. 주변 시설 · 보행</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">북측 필로티 + 보이드 마당을 지나는 남북 관통 보행로</p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">2. 소음</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">코어1 · 설비 다락을 서측 대로변에 두어 소음 완충</p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">3. 일조 · 바람</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">유리면 · 테라스는 보이드와 남동측으로 연다</p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.5rem;">4. 녹지 · 지형</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6;">지붕을 동측 구릉 쪽으로 낮추고 보이드 나무로 녹지를 잇는다</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05 SITE PLAN -->
+        <section class="detail-section" id="site-plan">
+            <p class="section-num-tag">05. SITE PLAN</p>
+            <h2 class="detail-heading">남북으로 관통하는 보행, 가운데 보이드와 나무</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/05_site_plan.jpg', '05 SITE PLAN')">
+                <img src="images/05_site_plan.jpg" alt="05 SITE PLAN" loading="lazy">
+                <p class="img-caption">05 SITE PLAN (클릭하여 확대)</p>
+            </div>
+
+            <div class="content-card">
+                <p style="color: var(--text-primary); line-height: 1.8; font-size: 0.95rem; margin-bottom: 0.5rem;">
+                    ① 주출입 · 남측 보행 진입 ② 부출입 · 필로티 (하교 동선) ③ 보이드 · 나무 ④ 필로티 ⑤ 지하 주차 램프 ⑥ 차량 진입 (동측 소로)
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                    지붕 등고선 0.5m (진한 선 2.5m)
+                </p>
+            </div>
+        </section>
+
+        <!-- 06 STRATEGY -->
+        <section class="detail-section" id="strategy">
+            <p class="section-num-tag">06. STRATEGY</p>
+            <h2 class="detail-heading">얼마나 다가갈지는 각자 고른다</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/06_strategy.jpg', '06 STRATEGY')">
+                <img src="images/06_strategy.jpg" alt="06 STRATEGY" loading="lazy">
+                <p class="img-caption">06 STRATEGY (클릭하여 확대)</p>
+            </div>
+
+            <div class="content-card" style="border-left: 3px solid var(--accent); margin-bottom: 1.5rem;">
+                <p style="font-style: italic; color: var(--text-primary); margin-bottom: 0.6rem; line-height: 1.6;">
+                    "Triangulation — the process by which some external stimulus provides a linkage between people and prompts strangers to talk to each other as if they were not." — William H. Whyte
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.6;">
+                    → 이 건물에서는 나무가 그 외부 자극이다. 눈을 마주칠 부담 대신, 같은 것을 보고 있다는 감각.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.4rem;">방 안</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">앉아서도 보이드가 보인다</p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.4rem;">문턱 (1.5m)</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">나와서 기대는 곳 (유리 난간 1.2m)</p>
+                </div>
+                <div class="content-card">
+                    <h4 style="color: var(--accent); margin-bottom: 0.4rem;">보이드</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.95rem;">마주 보는 방 10.7~13.5m</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h4 style="color: var(--text-primary); margin-bottom: 0.8rem; font-size: 1.05rem;">보이드는 인사하지 않아도 되는 거리</h4>
+                <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 0.6rem;">
+                    나무 아래 마당 1~3m (다가가기는 선택) / 문턱 끝끼리 −3m / 방 ↔ 방 10.7~13.5m
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.7;">
+                    <strong>거리 구분:</strong> 0m 친밀·개인 / 1.2m 사회적 / 3.7m 공적(근) / 7.6m~ 공적(원) — 관여할 의무가 없다
+                </p>
+            </div>
+        </section>
+
+        <!-- 07 MASS PROCESS -->
+        <section class="detail-section" id="mass-process">
+            <p class="section-num-tag">07. MASS PROCESS</p>
+            <h2 class="detail-heading">분리는 매스가, 공존은 지붕과 보이드가</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/07_mass_process.jpg', '07 MASS PROCESS')">
+                <img src="images/07_mass_process.jpg" alt="07 MASS PROCESS" loading="lazy">
+                <p class="img-caption">07 MASS PROCESS (클릭하여 확대)</p>
+            </div>
+
+            <div class="grid-5">
+                <div class="content-card">
+                    <span style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">STEP 1</span>
+                    <h4 style="margin: 0.4rem 0 0.3rem 0; font-size: 1rem;">최대 볼륨</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">건축 가능 영역</p>
+                </div>
+                <div class="content-card">
+                    <span style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">STEP 2</span>
+                    <h4 style="margin: 0.4rem 0 0.3rem 0; font-size: 1rem;">비운다</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">가운데 보이드, 북측 필로티</p>
+                </div>
+                <div class="content-card">
+                    <span style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">STEP 3</span>
+                    <h4 style="margin: 0.4rem 0 0.3rem 0; font-size: 1rem;">나눈다</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">세대별 볼륨</p>
+                </div>
+                <div class="content-card">
+                    <span style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">STEP 4</span>
+                    <h4 style="margin: 0.4rem 0 0.3rem 0; font-size: 1rem;">덮는다</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">각자의 방, 하나의 지붕 아래</p>
+                </div>
+                <div class="content-card">
+                    <span style="color: var(--accent); font-weight: 700; font-size: 0.85rem;">STEP 5</span>
+                    <h4 style="margin: 0.4rem 0 0.3rem 0; font-size: 1rem;">연다</h4>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">문턱 1.5m · 통유리</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 08 ZONING -->
+        <section class="detail-section" id="zoning">
+            <p class="section-num-tag">08. ZONING</p>
+            <h2 class="detail-heading">층마다 다른 세대, 가운데 하나의 보이드</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/08_zoning.jpg', '08 ZONING')">
+                <img src="images/08_zoning.jpg" alt="08 ZONING" loading="lazy">
+                <p class="img-caption">08 ZONING (클릭하여 확대)</p>
+            </div>
+
+            <div class="content-card">
+                <p style="color: var(--accent); font-weight: 600; font-size: 0.95rem; margin-bottom: 0.6rem;">
+                    B1 FL -4.4 / 1F FL ±0.0 / 2F FL +4.5 / 3F FL +8.1 / 4F FL +11.7
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.2rem;">
+                    <strong>범례:</strong> 10대 · 2030 · 4050 · 60+ · 시간제 공용 · 코어·서비스 · 옥상·테라스 · 보이드·나무
+                </p>
+
+                <h4 style="color: var(--text-primary); font-size: 1.1rem; margin-bottom: 0.8rem;">각자의 공간, 하나의 지붕 — 세 가지 장치</h4>
+                <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; color: var(--text-secondary); font-size: 0.95rem; padding-left: 0;">
+                    <li><strong style="color: var(--text-primary);">• 영역의 구분:</strong> 세대별 주점유 영역을 층과 레벨로 나눈다</li>
+                    <li><strong style="color: var(--text-primary);">• 시선의 중심 공유:</strong> 서로가 아니라 가운데 나무를 본다</li>
+                    <li><strong style="color: var(--text-primary);">• 일상의 배경화:</strong> 다른 세대가 마찰이 아닌 살아가는 풍경이 된다</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 09 PROGRAM -->
+        <section class="detail-section" id="program">
+            <p class="section-num-tag">09. PROGRAM</p>
+            <h2 class="detail-heading">평일엔 따로, 주말엔 함께</h2>
+
+            <div class="project-img-box" onclick="openLightbox('images/09_program.jpg', '09 PROGRAM')">
+                <img src="images/09_program.jpg" alt="09 PROGRAM" loading="lazy">
+                <p class="img-caption">09 PROGRAM 다이어그램 (클릭하여 확대)</p>
+            </div>
+
+            <div class="table-wrap">
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th>실</th>
+                            <th>층</th>
+                            <th>9–12시</th>
+                            <th>12–16시</th>
+                            <th>16–19시</th>
+                            <th>19–22시</th>
+                            <th>주말 — 함께</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>공공 라운지</strong></td>
+                            <td>1F</td>
+                            <td>산책 후 모임</td>
+                            <td>하원 대기</td>
+                            <td>방과 후 쉼</td>
+                            <td>퇴근길 카페</td>
+                            <td>동네 장터</td>
+                        </tr>
+                        <tr>
+                            <td><strong>동호회실 B</strong></td>
+                            <td>2F</td>
+                            <td>동아리</td>
+                            <td>학부모 모임</td>
+                            <td>동아리</td>
+                            <td>스터디</td>
+                            <td>세대 동아리</td>
+                        </tr>
+                        <tr>
+                            <td><strong>공방·메이커</strong></td>
+                            <td>B1</td>
+                            <td>목공·바느질</td>
+                            <td>생활 공예</td>
+                            <td>메이커 수업</td>
+                            <td>개인 작업</td>
+                            <td>60+ 워크숍</td>
+                        </tr>
+                        <tr>
+                            <td><strong>선큰 라운지</strong></td>
+                            <td>B1</td>
+                            <td>등원 후 모임</td>
+                            <td>영화·강좌</td>
+                            <td>아지트</td>
+                            <td>공연·네트워킹</td>
+                            <td>작은 공연</td>
+                        </tr>
+                        <tr>
+                            <td><strong>다목적 운동실</strong></td>
+                            <td>B1</td>
+                            <td>체조·요가</td>
+                            <td>필라테스</td>
+                            <td>댄스</td>
+                            <td>운동</td>
+                            <td>가족 운동</td>
+                        </tr>
+                        <tr>
+                            <td><strong>밴드 연습실</strong></td>
+                            <td>B1</td>
+                            <td></td>
+                            <td>합창·악기</td>
+                            <td>밴드</td>
+                            <td>합주</td>
+                            <td>세대 합주</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 10 FLOOR PLAN -->
+        <section class="detail-section" id="floor-plan">
+            <p class="section-num-tag">10. FLOOR PLAN</p>
+            <h2 class="detail-heading">층별 평면 · 세대별 조닝 (S = 1/400)</h2>
+
+            <div class="plan-tabs">
+                <button class="plan-tab-btn active" onclick="switchPlanTab('all')">전체 평면</button>
+                <button class="plan-tab-btn" onclick="switchPlanTab('b1')">B1</button>
+                <button class="plan-tab-btn" onclick="switchPlanTab('1f')">1F</button>
+                <button class="plan-tab-btn" onclick="switchPlanTab('2f')">2F</button>
+                <button class="plan-tab-btn" onclick="switchPlanTab('3f')">3F</button>
+                <button class="plan-tab-btn" onclick="switchPlanTab('4f')">4F</button>
+            </div>
+
+            <!-- Tab Contents -->
+            <div id="plan-all" class="plan-display-item active">
+                <div class="project-img-box" onclick="openLightbox('images/10_floor_plan_all.jpg', 'FLOOR PLAN 전체 (S = 1/400)')">
+                    <img src="images/10_floor_plan_all.jpg" alt="FLOOR PLAN ALL" loading="lazy">
+                    <p class="img-caption">FLOOR PLAN 전체 (클릭하여 확대)</p>
+                </div>
+            </div>
+
+            <div id="plan-b1" class="plan-display-item">
+                <div class="project-img-box" onclick="openLightbox('images/10a_plan_B1.jpg', 'B1 FL -4.4 평면도 (S = 1/400)')">
+                    <img src="images/10a_plan_B1.jpg" alt="B1 PLAN" loading="lazy">
+                    <p class="img-caption">B1 FL -4.4 평면도 (클릭하여 확대)</p>
+                </div>
+            </div>
+
+            <div id="plan-1f" class="plan-display-item">
+                <div class="project-img-box" onclick="openLightbox('images/10b_plan_1F.jpg', '1F FL ±0.0 평면도 (S = 1/400)')">
+                    <img src="images/10b_plan_1F.jpg" alt="1F PLAN" loading="lazy">
+                    <p class="img-caption">1F FL ±0.0 평면도 (클릭하여 확대)</p>
+                </div>
+            </div>
+
+            <div id="plan-2f" class="plan-display-item">
+                <div class="project-img-box" onclick="openLightbox('images/10c_plan_2F.jpg', '2F FL +4.5 평면도 (S = 1/400)')">
+                    <img src="images/10c_plan_2F.jpg" alt="2F PLAN" loading="lazy">
+                    <p class="img-caption">2F FL +4.5 평면도 (클릭하여 확대)</p>
+                </div>
+            </div>
+
+            <div id="plan-3f" class="plan-display-item">
+                <div class="project-img-box" onclick="openLightbox('images/10d_plan_3F.jpg', '3F FL +8.1 평면도 (S = 1/400)')">
+                    <img src="images/10d_plan_3F.jpg" alt="3F PLAN" loading="lazy">
+                    <p class="img-caption">3F FL +8.1 평면도 (클릭하여 확대)</p>
+                </div>
+            </div>
+
+            <div id="plan-4f" class="plan-display-item">
+                <div class="project-img-box" onclick="openLightbox('images/10e_plan_4F.jpg', '4F FL +11.7 평면도 (S = 1/400)')">
+                    <img src="images/10e_plan_4F.jpg" alt="4F PLAN" loading="lazy">
+                    <p class="img-caption">4F FL +11.7 평면도 (클릭하여 확대)</p>
+                </div>
+            </div>
+
+            <!-- Floor Plan Gallery Grid (5장 나란히 배치) -->
+            <h3 class="subsection-heading" style="margin-top: 2rem;">층별 평면 갤러리 (B1 ~ 4F)</h3>
+            <div class="drawing-grid">
+                <div class="drawing-card" onclick="openLightbox('images/10a_plan_B1.jpg', 'B1 FL -4.4 평면도 (S = 1/400)')">
+                    <img src="images/10a_plan_B1.jpg" alt="B1 FL -4.4 평면도" loading="lazy">
+                    <div class="drawing-label">B1 FL -4.4 평면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+                <div class="drawing-card" onclick="openLightbox('images/10b_plan_1F.jpg', '1F FL ±0.0 평면도 (S = 1/400)')">
+                    <img src="images/10b_plan_1F.jpg" alt="1F FL ±0.0 평면도" loading="lazy">
+                    <div class="drawing-label">1F FL ±0.0 평면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+                <div class="drawing-card" onclick="openLightbox('images/10c_plan_2F.jpg', '2F FL +4.5 평면도 (S = 1/400)')">
+                    <img src="images/10c_plan_2F.jpg" alt="2F FL +4.5 평면도" loading="lazy">
+                    <div class="drawing-label">2F FL +4.5 평면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+                <div class="drawing-card" onclick="openLightbox('images/10d_plan_3F.jpg', '3F FL +8.1 평면도 (S = 1/400)')">
+                    <img src="images/10d_plan_3F.jpg" alt="3F FL +8.1 평면도" loading="lazy">
+                    <div class="drawing-label">3F FL +8.1 평면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+                <div class="drawing-card" onclick="openLightbox('images/10e_plan_4F.jpg', '4F FL +11.7 평면도 (S = 1/400)')">
+                    <img src="images/10e_plan_4F.jpg" alt="4F FL +11.7 평면도" loading="lazy">
+                    <div class="drawing-label">4F FL +11.7 평면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+            </div>
+
+            <!-- Floor Plan Room List Table -->
+            <h3 class="subsection-heading">층별 실 목록</h3>
+            <div class="table-wrap">
+                <table class="detail-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 140px;">층</th>
+                            <th style="width: 120px;">도면</th>
+                            <th>실 목록</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>B1 FL -4.4</strong></td>
+                            <td><a href="javascript:void(0)" onclick="openLightbox('images/10a_plan_B1.jpg', 'B1 FL -4.4 평면도')" style="color: var(--accent); text-decoration: none;">도면 보기 ↗</a></td>
+                            <td>22 밴드 연습실 1·2 / 23 주차 14대 / 24 다목적 운동실 / 25 선큰 라운지 / 26 공방·메이커스페이스</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1F FL ±0.0</strong></td>
+                            <td><a href="javascript:void(0)" onclick="openLightbox('images/10b_plan_1F.jpg', '1F FL ±0.0 평면도')" style="color: var(--accent); text-decoration: none;">도면 보기 ↗</a></td>
+                            <td>17 어린이 도서관 / 18 60+ 재능공유 1 / 19 필로티 / 20 조별 1·2·3 / 21 공공 라운지</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2F FL +4.5</strong></td>
+                            <td><a href="javascript:void(0)" onclick="openLightbox('images/10c_plan_2F.jpg', '2F FL +4.5 평면도')" style="color: var(--accent); text-decoration: none;">도면 보기 ↗</a></td>
+                            <td>11 4050 개인 공간 / 12 60+ 생활체육실 / 13 60+ 재능공유 2 / 14 동호회실 B / 15 10대 라운지 2 / 16 10대 라운지</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3F FL +8.1</strong></td>
+                            <td><a href="javascript:void(0)" onclick="openLightbox('images/10d_plan_3F.jpg', '3F FL +8.1 평면도')" style="color: var(--accent); text-decoration: none;">도면 보기 ↗</a></td>
+                            <td>5 협업 1 / 6 공용 테라스 / 7 60+ 옥상 마당 / 8 협업 2 / 9 2030 회의실 / 10 2030 집중석</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4F FL +11.7</strong></td>
+                            <td><a href="javascript:void(0)" onclick="openLightbox('images/10e_plan_4F.jpg', '4F FL +11.7 평면도')" style="color: var(--accent); text-decoration: none;">도면 보기 ↗</a></td>
+                            <td>1 도서관동 옥상 마당 / 2 문턱 테라스 / 3 옥상 마당 (코어1 쪽) / 4 2030 휴게공간</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 11 SECTION -->
+        <section class="detail-section" id="section">
+            <p class="section-num-tag">11. SECTION</p>
+            <h2 class="detail-heading">단면도 (S = 1/400)</h2>
+
+            <div class="drawing-grid">
+                <div class="drawing-card" onclick="openLightbox('images/11a_section_BB.jpg', 'SECTION B-B′ 동서 단면도 (S = 1/400)')">
+                    <img src="images/11a_section_BB.jpg" alt="SECTION B-B′ 동서 단면도" loading="lazy">
+                    <div class="drawing-label">SECTION B-B′ 동서 단면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+
+                <div class="drawing-card" onclick="openLightbox('images/11b_section_EE.jpg', 'SECTION E-E′ 남북 단면도 (S = 1/400)')">
+                    <img src="images/11b_section_EE.jpg" alt="SECTION E-E′ 남북 단면도" loading="lazy">
+                    <div class="drawing-label">SECTION E-E′ 남북 단면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12 PERSPECTIVE -->
+        <section class="detail-section" id="perspective">
+            <p class="section-num-tag">12. PERSPECTIVE</p>
+            <h2 class="detail-heading">렌더 컷</h2>
+
+            <div class="grid-2">
+                <div class="content-card">
+                    <div class="perspective-placeholder-box">
+                        <span class="placeholder-text">렌더 컷 1 — 준비 중</span>
+                    </div>
+                    <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 0.4rem;">SCENE 1</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+                        오후 4시, 2층 10대 라운지 — 보이드 너머로 60+ 생활체육실이 보인다
+                    </p>
+                </div>
+
+                <div class="content-card">
+                    <div class="perspective-placeholder-box">
+                        <span class="placeholder-text">렌더 컷 2 — 준비 중</span>
+                    </div>
+                    <h4 style="color: var(--accent); font-size: 1rem; margin-bottom: 0.4rem;">SCENE 2</h4>
+                    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem;">
+                        주말 오전, 1층 보이드 마당 — 네 세대가 같은 나무 아래를 지난다
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 13 ELEVATION -->
+        <section class="detail-section" id="elevation">
+            <p class="section-num-tag">13. ELEVATION</p>
+            <h2 class="detail-heading">입면도 (S = 1/400)</h2>
+
+            <div class="drawing-grid">
+                <div class="drawing-card" onclick="openLightbox('images/13a_elev_south.jpg', 'SOUTH ELEVATION 남측 입면도 (S = 1/400)')">
+                    <img src="images/13a_elev_south.jpg" alt="SOUTH ELEVATION 남측 입면도" loading="lazy">
+                    <div class="drawing-label">SOUTH ELEVATION 남측 입면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+
+                <div class="drawing-card" onclick="openLightbox('images/13b_elev_east.jpg', 'EAST ELEVATION 동측 입면도 (S = 1/400)')">
+                    <img src="images/13b_elev_east.jpg" alt="EAST ELEVATION 동측 입면도" loading="lazy">
+                    <div class="drawing-label">EAST ELEVATION 동측 입면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+
+                <div class="drawing-card" onclick="openLightbox('images/13c_elev_north.jpg', 'NORTH ELEVATION 북측 입면도 (S = 1/400)')">
+                    <img src="images/13c_elev_north.jpg" alt="NORTH ELEVATION 북측 입면도" loading="lazy">
+                    <div class="drawing-label">NORTH ELEVATION 북측 입면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+
+                <div class="drawing-card" onclick="openLightbox('images/13d_elev_west.jpg', 'WEST ELEVATION 서측 입면도 (S = 1/400)')">
+                    <img src="images/13d_elev_west.jpg" alt="WEST ELEVATION 서측 입면도" loading="lazy">
+                    <div class="drawing-label">WEST ELEVATION 서측 입면도</div>
+                    <div class="drawing-zoom-hint">🔍 클릭하여 확대</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom Navigation Link -->
+        <div class="back-nav-box">
+            <a href="../../index.html#projects" class="btn-primary" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                ← 전체 작품으로
+            </a>
+            <a href="#about" class="btn-secondary" style="text-decoration: none;" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+                ↑ 맨 위로 이동
+            </a>
+        </div>
+    </main>
+
+    <!-- Drawing Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-modal" onclick="closeLightbox(event)">
+        <div class="lightbox-content">
+            <button class="btn-lightbox-close" onclick="closeLightbox()">&times;</button>
+            <img id="lightbox-img" src="" alt="Enlarged Drawing">
+            <div id="lightbox-caption" class="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-inner">
+            <div>
+                <p class="f-name">신구대학교 건축학과 유시윤</p>
+                <p class="f-sub">Architecture Student, Shingu University</p>
+            </div>
+            <div class="f-links">
+                <a href="https://github.com/jeikeuekeu-collab/archAI" target="_blank" rel="noopener">GitHub Repository</a>
+            </div>
+        </div>
+        <div class="f-copy">© 2026 Architectural Portfolio. Built with Vibe Coding (Antigravity IDE).</div>
+    </footer>
+
+    <script>
+        function openLightbox(src, caption) {
+            document.getElementById('lightbox-img').src = src;
+            document.getElementById('lightbox-caption').innerText = caption;
+            document.getElementById('lightbox-modal').classList.add('show');
+        }
+
+        function closeLightbox(e) {
+            if (!e || e.target.id === 'lightbox-modal' || e.target.classList.contains('btn-lightbox-close')) {
+                document.getElementById('lightbox-modal').classList.remove('show');
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            }
+        });
+
+        function switchPlanTab(tabId) {
+            document.querySelectorAll('.plan-tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.plan-display-item').forEach(item => item.classList.remove('active'));
+
+            if (event && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+
+            const target = document.getElementById('plan-' + tabId);
+            if (target) {
+                target.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

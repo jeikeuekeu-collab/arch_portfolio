@@ -1,4 +1,4 @@
-// Architectural Portfolio Data & Logic - ORBIT
+// Architectural Portfolio Data & Logic
 const projectsData = [
     {
         id: 1,
@@ -13,7 +13,24 @@ const projectsData = [
         images: [
             "projects/orbit/images/00_cover_render.jpg",
             "projects/orbit/images/30_render_sunken_living.jpg"
-        ]
+        ],
+        detailUrl: "projects/orbit/index.html"
+    },
+    {
+        id: 2,
+        title: "LANDSCAPE OF COEXISTENCE : 공존의 풍경화",
+        subTitle: "각자의 공간, 하나의 지붕",
+        category: "public",
+        year: "2026.Fall / 2학년 2학기",
+        location: "경기도 성남시 분당구 정자동 219-1, 219-2",
+        area: "대지 1,448.0㎡ / 지하 1층 · 지상 4층 / 지하 1,254㎡",
+        structure: "철근콘크리트조 · 곡면 금속지붕",
+        concept: "섞는 대신, 같은 풍경을 바라보게. 인사할 의무 없는 거리에서 같은 풍경을 겪는다 (약 8~13m). 배제 대신, 거리를 각자 고른다. 네 세대가 같은 나무를 바라보는 소규모 복합문화시설.",
+        images: [
+            "projects/coexistence/images/11b_section_EE.jpg",
+            "projects/coexistence/images/05_site_plan.jpg"
+        ],
+        detailUrl: "projects/coexistence/index.html"
     }
 ];
 
@@ -46,7 +63,7 @@ function openProjectModal(id) {
         </div>
         
         <div style="margin-top: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
-            <a href="projects/orbit/index.html" class="btn-primary" style="display: inline-flex; text-decoration: none;">
+            <a href="${project.detailUrl || '#'}" class="btn-primary" style="display: inline-flex; text-decoration: none;">
                 전체 프로젝트 보기 →
             </a>
             <a href="#design-rationale" class="btn-secondary" onclick="closeProjectModal()" style="display: inline-flex; text-decoration: none;">
