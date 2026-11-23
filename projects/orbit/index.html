@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../style.css?v=3">
     <style>
         /* Detail Page Custom Styles */
         .project-detail-wrap {
@@ -49,7 +49,7 @@
 
         .project-author-badge {
             display: inline-block;
-            background: rgba(94, 234, 212, 0.1);
+            background: var(--accent-glow);
             color: var(--accent);
             border: 1px solid var(--border-accent);
             padding: 0.35rem 0.9rem;
@@ -146,7 +146,7 @@
             overflow: hidden;
             border: 1px solid var(--border);
             margin: 1rem 0;
-            background: rgba(0,0,0,0.3);
+            background: #f8fafc;
         }
 
         .project-img-box img {
@@ -159,7 +159,7 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             padding: 0.6rem 0.8rem;
-            background: rgba(0,0,0,0.4);
+            background: #f8fafc;
             border-top: 1px solid var(--border);
         }
 
@@ -178,11 +178,12 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-sm);
         }
 
         .drawing-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
         }
 
         .drawing-card img {
@@ -214,6 +215,7 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
         }
 
         .detail-table {
@@ -229,7 +231,7 @@
         }
 
         .detail-table th {
-            background: rgba(255, 255, 255, 0.04);
+            background: #f8fafc;
             color: var(--accent);
             font-weight: 600;
         }
@@ -239,11 +241,11 @@
         }
 
         .detail-table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
+            background: #f8fafc;
         }
 
         .table-total-row {
-            background: rgba(94, 234, 212, 0.06);
+            background: rgba(13, 148, 136, 0.08);
             font-weight: 700;
             color: var(--text-primary);
         }
@@ -560,7 +562,7 @@
                 </table>
             </div>
 
-            <div class="content-card" style="background: rgba(94, 234, 212, 0.05); border-color: var(--border-accent);">
+            <div class="content-card" style="background: #f8fafc; border-color: var(--border-accent);">
                 <p>• <strong>연면적(1F+2F):</strong> 225.28 ㎡ (약 68.1평)</p>
                 <p>• <strong>용적률 확인:</strong> 225.28 ÷ 286.30 = 약 78.7% (법정 100% 이내)</p>
             </div>

@@ -46,7 +46,7 @@ function openProjectModal(id) {
             <h2 style="font-family: var(--font-heading); font-size: 2rem; margin: 0.4rem 0 1rem 0;">${project.title}</h2>
         </div>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; background: rgba(0,0,0,0.3); padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; background: #f8fafc; padding: 1.2rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">
             <div><strong>대지위치:</strong> <span style="color: var(--text-secondary);">${project.location}</span></div>
             <div><strong>규모/면적:</strong> <span style="color: var(--text-secondary);">${project.area}</span></div>
             <div style="grid-column: span 2;"><strong>구조 및 재료:</strong> <span style="color: var(--text-secondary);">${project.structure}</span></div>
@@ -113,7 +113,7 @@ function initThreeViewer() {
 
     // Scene & Camera
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0c10);
+    scene.background = new THREE.Color(0xf8fafc);
 
     camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.set(24, 18, 26);
@@ -133,20 +133,20 @@ function initThreeViewer() {
     controls.maxPolarAngle = Math.PI / 2 - 0.02;
 
     // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.65);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 0.85);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
     dirLight.position.set(20, 35, 20);
     dirLight.castShadow = true;
     scene.add(dirLight);
 
-    const dirLight2 = new THREE.DirectionalLight(0x38bdf8, 0.35);
+    const dirLight2 = new THREE.DirectionalLight(0xbae6fd, 0.4);
     dirLight2.position.set(-20, 15, -20);
     scene.add(dirLight2);
 
-    // Architectural Ground Grid
-    const gridHelper = new THREE.GridHelper(50, 50, 0x5eead4, 0x222a35);
+    // Architectural Ground Grid (Light architectural tone)
+    const gridHelper = new THREE.GridHelper(50, 50, 0x0d9488, 0xd1d5db);
     gridHelper.position.y = -0.01;
     scene.add(gridHelper);
 

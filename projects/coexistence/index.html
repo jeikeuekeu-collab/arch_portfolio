@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700&family=Space+Grotesk:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../style.css?v=2">
+    <link rel="stylesheet" href="../../style.css?v=3">
     <style>
         /* Detail Page Custom Styles */
         .project-detail-wrap {
@@ -64,7 +64,7 @@
 
         .project-author-badge {
             display: inline-block;
-            background: rgba(94, 234, 212, 0.1);
+            background: var(--accent-glow);
             color: var(--accent);
             border: 1px solid var(--border-accent);
             padding: 0.35rem 0.9rem;
@@ -79,7 +79,7 @@
             height: 380px;
             border-radius: var(--radius-lg);
             border: 1px dashed var(--border);
-            background: rgba(255, 255, 255, 0.03);
+            background: #f8fafc;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -177,14 +177,14 @@
             overflow: hidden;
             border: 1px solid var(--border);
             margin: 1rem 0;
-            background: rgba(0,0,0,0.3);
+            background: #f8fafc;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
         .project-img-box:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
         }
 
         .project-img-box img {
@@ -197,7 +197,7 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             padding: 0.6rem 0.8rem;
-            background: rgba(0,0,0,0.4);
+            background: #f8fafc;
             border-top: 1px solid var(--border);
         }
 
@@ -216,11 +216,12 @@
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid #e2e8f0;
+            box-shadow: var(--shadow-sm);
         }
 
         .drawing-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
         }
 
         .drawing-card img {
@@ -252,6 +253,7 @@
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-sm);
         }
 
         .detail-table {
@@ -267,7 +269,7 @@
         }
 
         .detail-table th {
-            background: rgba(255, 255, 255, 0.04);
+            background: #f8fafc;
             color: var(--accent);
             font-weight: 600;
         }
@@ -277,7 +279,7 @@
         }
 
         .detail-table tr:hover {
-            background: rgba(255, 255, 255, 0.02);
+            background: #f8fafc;
         }
 
         /* Perspective Placeholder */
@@ -286,7 +288,7 @@
             height: 260px;
             border-radius: var(--radius-sm);
             border: 1px dashed var(--border);
-            background: rgba(255, 255, 255, 0.03);
+            background: #f8fafc;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -302,7 +304,7 @@
         }
 
         .plan-tab-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: #f8fafc;
             border: 1px solid var(--border);
             color: var(--text-secondary);
             padding: 0.5rem 1rem;
@@ -314,13 +316,13 @@
         }
 
         .plan-tab-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: #f1f5f9;
             color: var(--text-primary);
         }
 
         .plan-tab-btn.active {
             background: var(--accent);
-            color: #0b0f17;
+            color: #ffffff;
             border-color: var(--accent);
         }
 
