@@ -85,6 +85,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 let scene, camera, renderer, controls, massGroup;
 let isWireframe = false;
 let isRotating = false;
+let isCustomModelLoaded = false;
 
 function initThreeViewer() {
     const container = document.getElementById('three-canvas-wrap');
@@ -225,9 +226,17 @@ function initThreeViewer() {
     document.getElementById('btn-mode-wire').addEventListener('click', function() {
         isWireframe = !isWireframe;
         this.classList.toggle('active', isWireframe);
-        massGroup.children.forEach(mesh => {
-            if (mesh.material) mesh.material.wireframe = isWireframe;
-        });
+        if (massGroup) {
+            massGroup.traverse(node => {
+                if (node.isMesh && node.material) {
+                    if (Array.isArray(node.material)) {
+                        node.material.forEach(m => m.wireframe = isWireframe);
+                    } else {
+                        node.material.wireframe = isWireframe;
+                    }
+                }
+            });
+        }
     });
 
     document.getElementById('btn-mode-rotate').addEventListener('click', function() {
@@ -249,6 +258,9 @@ function initThreeViewer() {
 
 // 4-1. GLTF / GLB Loader Logic
 const gltfLoader = new THREE.GLTFLoader();
+const dracoLoader = new THREE.DRACOLoader();
+dracoLoader.setDecoderPath('models/draco/');
+gltfLoader.setDRACOLoader(dracoLoader);
 
 function loadStaticGltfIfExists(modelUrl) {
     gltfLoader.load(
@@ -290,6 +302,8 @@ function applyLoadedModel(modelScene, modelName) {
         scene.remove(massGroup);
     }
 
+    isCustomModelLoaded = true;
+
     const box = new THREE.Box3().setFromObject(modelScene);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
@@ -309,8 +323,8 @@ function applyLoadedModel(modelScene, modelName) {
     camera.position.set(24, 18, 26);
     controls.target.set(0, 5, 0);
 
-    document.getElementById('anno-title').innerText = `로드 완료: ${modelName}`;
-    document.getElementById('anno-desc').innerText = `학생의 실제 3D 모델이 뷰어에 성공적으로 적용되었습니다. 마우스 드래그로 회전하거나 확대/축소하여 자유롭게 검토하세요.`;
+    document.getElementById('anno-title').innerText = "전체 매스 (Overall Massing)";
+    document.getElementById('anno-desc').innerText = "[CORE]로 모으고, [LOOP]로 순환하며, [NEXUS]로 연결한다. 서로 다른 속도의 삶이 부딪히지 않고 공존하는 우주적 질서를 통해, 타인은 비로소 가족이 된다.";
 }
 
 // 3D Mass Highlight & Spatial Description
@@ -339,25 +353,27 @@ function highlightPart(partName) {
     document.querySelectorAll('.part-btn').forEach(btn => btn.classList.remove('active'));
     event?.currentTarget?.classList.add('active');
 
-    massGroup.children.forEach(mesh => {
-        if (mesh.name === partName) {
-            mesh.material = new THREE.MeshStandardMaterial({
-                color: 0x5eead4,
-                roughness: 0.2,
-                metalness: 0.3,
-                emissive: 0x134e4a,
-                wireframe: isWireframe
-            });
-        } else {
-            mesh.material = new THREE.MeshStandardMaterial({
-                color: 0x475569,
-                roughness: 0.6,
-                transparent: true,
-                opacity: 0.35,
-                wireframe: isWireframe
-            });
-        }
-    });
+    if (!isCustomModelLoaded) {
+        massGroup.children.forEach(mesh => {
+            if (mesh.name === partName) {
+                mesh.material = new THREE.MeshStandardMaterial({
+                    color: 0x5eead4,
+                    roughness: 0.2,
+                    metalness: 0.3,
+                    emissive: 0x134e4a,
+                    wireframe: isWireframe
+                });
+            } else {
+                mesh.material = new THREE.MeshStandardMaterial({
+                    color: 0x475569,
+                    roughness: 0.6,
+                    transparent: true,
+                    opacity: 0.35,
+                    wireframe: isWireframe
+                });
+            }
+        });
+    }
 
     const info = partAnnotations[partName];
     if (info) {
@@ -370,47 +386,49 @@ function resetMassHighlight() {
     if (!massGroup) return;
     document.querySelectorAll('.part-btn').forEach(btn => btn.classList.remove('active'));
 
-    const clayMaterial = new THREE.MeshStandardMaterial({
-        color: 0xe2e8f0,
-        roughness: 0.35,
-        metalness: 0.1,
-        wireframe: isWireframe
-    });
+    if (!isCustomModelLoaded) {
+        const clayMaterial = new THREE.MeshStandardMaterial({
+            color: 0xe2e8f0,
+            roughness: 0.35,
+            metalness: 0.1,
+            wireframe: isWireframe
+        });
 
-    const brickMaterial = new THREE.MeshStandardMaterial({
-        color: 0xb45309,
-        roughness: 0.7,
-        metalness: 0.05,
-        wireframe: isWireframe
-    });
+        const brickMaterial = new THREE.MeshStandardMaterial({
+            color: 0xb45309,
+            roughness: 0.7,
+            metalness: 0.05,
+            wireframe: isWireframe
+        });
 
-    const loopMaterial = new THREE.MeshStandardMaterial({
-        color: 0x94a3b8,
-        roughness: 0.4,
-        metalness: 0.1,
-        wireframe: isWireframe
-    });
+        const loopMaterial = new THREE.MeshStandardMaterial({
+            color: 0x94a3b8,
+            roughness: 0.4,
+            metalness: 0.1,
+            wireframe: isWireframe
+        });
 
-    const glassMaterial = new THREE.MeshPhysicalMaterial({
-        color: 0x5eead4,
-        transparent: true,
-        opacity: 0.45,
-        roughness: 0.1,
-        transmission: 0.6,
-        wireframe: isWireframe
-    });
+        const glassMaterial = new THREE.MeshPhysicalMaterial({
+            color: 0x5eead4,
+            transparent: true,
+            opacity: 0.45,
+            roughness: 0.1,
+            transmission: 0.6,
+            wireframe: isWireframe
+        });
 
-    massGroup.children.forEach(mesh => {
-        if (mesh.name === 'nexus') {
-            mesh.material = glassMaterial;
-        } else if (mesh.name === 'screen') {
-            mesh.material = brickMaterial;
-        } else if (mesh.name === 'loop') {
-            mesh.material = loopMaterial;
-        } else {
-            mesh.material = clayMaterial;
-        }
-    });
+        massGroup.children.forEach(mesh => {
+            if (mesh.name === 'nexus') {
+                mesh.material = glassMaterial;
+            } else if (mesh.name === 'screen') {
+                mesh.material = brickMaterial;
+            } else if (mesh.name === 'loop') {
+                mesh.material = loopMaterial;
+            } else {
+                mesh.material = clayMaterial;
+            }
+        });
+    }
 
     document.getElementById('anno-title').innerText = "전체 매스 (Overall Massing)";
     document.getElementById('anno-desc').innerText = "[CORE]로 모으고, [LOOP]로 순환하며, [NEXUS]로 연결한다. 서로 다른 속도의 삶이 부딪히지 않고 공존하는 우주적 질서를 통해, 타인은 비로소 가족이 된다.";
